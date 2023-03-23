@@ -13,4 +13,7 @@
     <color name="greydark">#485461</color>
     <color name="lightgreen">#7EE8FA</color>
     <color name="whiteshade">#F0F1F5</color>
+
+    <!-- shimmer color-->
+    <color name="backgroundShimmer">#BDD4E7</color>
 </resources>

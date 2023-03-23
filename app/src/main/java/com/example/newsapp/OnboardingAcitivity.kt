@@ -1,5 +1,6 @@
 package com.example.newsapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -54,12 +55,26 @@ class OnboardingAcitivity : AppIntro() {
     override fun onSkipPressed(currentFragment: Fragment?) {
         super.onSkipPressed(currentFragment)
         // Decide what to do when the user clicks on "Skip"
+        val intent =
+            Intent(
+                this@OnboardingAcitivity,
+                NewsActivity::class.java
+            )
+        startActivity(intent)
+
         finish()
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-        // Decide what to do when the user clicks on "Done"
+        val intent =
+            Intent(
+                this@OnboardingAcitivity,
+                NewsActivity::class.java
+            )
+        startActivity(intent)
+
         finish()
+
     }
 }

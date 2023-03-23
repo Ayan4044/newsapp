@@ -7,4 +7,14 @@
 
     tools:context=".NewsActivity">
 
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

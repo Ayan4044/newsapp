@@ -57,6 +57,8 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
     implementation "com.squareup.okhttp3:okhttp-urlconnection:4.2.1"
 
+
+
     //coroutinees
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
@@ -79,5 +81,10 @@ dependencies {
     //coroutinees
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation "androidx.lifecycle:lifecycle-viewmodel:2.6.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0"
+
+    //snacky
+    implementation 'com.github.Ayan4044:Snacky:0.0.8'
 
 }
