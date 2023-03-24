@@ -114,8 +114,11 @@ class NewsFragment : Fragment(), LifecycleObserver {
 
         newsAdapter.onItemClickListener(object: NewsAdapter.OnItemClickListener{
             override fun viewdetails(pos: Int) {
-                var article = newsArrayList[pos]
+
+                viewModel.setArtcile(newsArrayList[pos])
+
                 
+
             }
 
         })

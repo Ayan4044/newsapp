@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import androidx.lifecycle.*
 import com.example.newsapp.api.RetrofitSingleton
+import com.example.newsapp.model.Articles
 import com.example.newsapp.model.DataClassNews
 import com.example.newsapp.repository.NewsRepository
 import com.example.newsapp.utils.CheckInternet
@@ -44,10 +45,15 @@ class NewsViewModel (application: Application): AndroidViewModel(application) {
     private var _checkInternetLiveData: MutableLiveData<Boolean> = MutableLiveData()
     val getInternetStatus: LiveData<Boolean> get() = _checkInternetLiveData
 
-    //live data
+    //live data news
     private var _liveDataNews: MutableLiveData<ScreenState<DataClassNews?>> =
         MutableLiveData()
     val getAllnews: LiveData<ScreenState<DataClassNews?>> get() = _liveDataNews
+
+    //live data
+    private var _liveDataArticle: MutableLiveData<Articles?> =
+        MutableLiveData()
+    val getArticle: LiveData<Articles?> get() = _liveDataArticle
 
 
 
@@ -90,5 +96,10 @@ class NewsViewModel (application: Application): AndroidViewModel(application) {
         else
             _checkInternetLiveData.postValue(false)
 
+    }
+
+
+    fun setArtcile(articles: Articles){
+        _liveDataArticle.postValue(articles)
     }
 }
