@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+
+    <style name="AutoCompleteStyle"  parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="colorControlActivated">#ef5350</item>
+        <item name="android:textColor">@color/blueshade</item>
+        <item name="android:textColorHint">@color/greyshade</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textCursorDrawable">@color/blueshadetwo</item>
+        <item name="endIconTint">@color/bludehsadetwo</item>
+        <item name="startIconTint">@color/bludehsadetwo</item>
+        <item name="hintTextColor">@color/greushadetwo</item>
+        <item name="indicatorColor">@color/greushadetwo</item>
+        <item name="drawableTint">@color/bludehsadetwo</item>
+        <item name="boxStrokeColor">@color/bludehsadetwo</item>
+    </style>
+</resources>

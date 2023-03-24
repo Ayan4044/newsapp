@@ -6,6 +6,7 @@ import androidx.lifecycle.*
 import com.example.newsapp.api.RetrofitSingleton
 import com.example.newsapp.model.DataClassNews
 import com.example.newsapp.repository.NewsRepository
+import com.example.newsapp.utils.CheckInternet
 import com.example.newsapp.utils.ScreenState
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -39,7 +40,9 @@ class NewsViewModel (application: Application): AndroidViewModel(application) {
         Gson()
     }
 
-
+    //connection data
+    private var _checkInternetLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    val getInternetStatus: LiveData<Boolean> get() = _checkInternetLiveData
 
     //live data
     private var _liveDataNews: MutableLiveData<ScreenState<DataClassNews?>> =
@@ -47,7 +50,9 @@ class NewsViewModel (application: Application): AndroidViewModel(application) {
     val getAllnews: LiveData<ScreenState<DataClassNews?>> get() = _liveDataNews
 
 
-    fun loadDoctorProfile(topic: String ) {
+
+
+    fun loadNews(topic: String ) {
         _liveDataNews.postValue(ScreenState.Loading(null))
 
 
@@ -75,5 +80,15 @@ class NewsViewModel (application: Application): AndroidViewModel(application) {
 
                 }
             }
+    }
+
+
+    fun observeInternetConnection(context:Context){
+
+        if(CheckInternet().checkConnection(context))
+            _checkInternetLiveData.postValue(true)
+        else
+            _checkInternetLiveData.postValue(false)
+
     }
 }

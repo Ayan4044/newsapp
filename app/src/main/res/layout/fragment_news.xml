@@ -7,6 +7,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.NewsFragment">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textinputNewsType"
+        style="@style/AutoCompleteStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline17"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline18"
+        app:layout_constraintTop_toTopOf="@+id/guideline4">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/autoNewstype"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:completionThreshold="0"
+            android:focusable="false"
+            android:hint="@string/news_topic"
+            android:imeOptions="actionDone" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerviewNewslive"
         android:layout_width="0dp"
@@ -24,11 +45,13 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/recyclerviewCrypto"
-        app:layout_constraintEnd_toEndOf="@+id/recyclerviewCrypto"
-        app:layout_constraintStart_toStartOf="@+id/recyclerviewCrypto"
-        app:layout_constraintTop_toTopOf="@+id/recyclerviewCrypto">
+        android:visibility="visible"
+
+
+        app:layout_constraintBottom_toTopOf="@+id/guideline16"
+        app:layout_constraintEnd_toStartOf="@+id/guideline17"
+        app:layout_constraintStart_toStartOf="@+id/guideline18"
+        app:layout_constraintTop_toTopOf="@+id/guideline15">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,24 +59,39 @@
             android:orientation="vertical">
 
             <include layout="@layout/data_layout_newss" />
+            <View android:layout_height="4dp"
+                android:layout_width="match_parent"/>
 
             <include layout="@layout/data_layout_newss" />
+            <View android:layout_height="4dp"
+                android:layout_width="match_parent"/>
 
             <include layout="@layout/data_layout_newss" />
+            <View android:layout_height="4dp"
+                android:layout_width="match_parent"/>
 
             <include layout="@layout/data_layout_newss" />
-
+            <View android:layout_height="4dp"
+                android:layout_width="match_parent"/>
+            <include layout="@layout/data_layout_newss" />
+            <View android:layout_height="4dp"
+                android:layout_width="match_parent"/>
             <include layout="@layout/data_layout_newss" />
 
-            <include layout="@layout/data_layout_newss" />
 
-            <include layout="@layout/data_layout_newss" />
 
         </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.11" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"

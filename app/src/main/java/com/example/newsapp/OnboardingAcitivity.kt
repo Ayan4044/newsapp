@@ -55,26 +55,24 @@ class OnboardingAcitivity : AppIntro() {
     override fun onSkipPressed(currentFragment: Fragment?) {
         super.onSkipPressed(currentFragment)
         // Decide what to do when the user clicks on "Skip"
-        val intent =
-            Intent(
-                this@OnboardingAcitivity,
-                NewsActivity::class.java
-            )
-        startActivity(intent)
-
-        finish()
+        movetoMain()
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
+        movetoMain()
+
+    }
+
+    private fun movetoMain(){
         val intent =
             Intent(
                 this@OnboardingAcitivity,
                 NewsActivity::class.java
             )
         startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
 
         finish()
-
     }
 }

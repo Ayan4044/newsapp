@@ -9,6 +9,6 @@ import retrofit2.http.Query
 
 interface ApiInterface {
 
-    @GET("latest_headlines?countries=IN")
-    fun loadNews(@Header("x-api-key") apikey:String, @Query("topic") news:String):Call<DataClassNews>
+    @GET("latest_headlines?countries=in")
+    fun loadNews(@Header("x-api-key") apikey:String,@Query("lang") news:String,  @Query("topic") lang:String):Call<DataClassNews>
 }

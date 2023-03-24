@@ -42,7 +42,7 @@ data class Articles(
 
 data class UserInput(
 
-    @SerializedName("lang") var lang: String? = null,
+    @SerializedName("lang") var lang: ArrayList<String> = arrayListOf(),
     @SerializedName("not_lang") var notLang: String? = null,
     @SerializedName("countries") var countries: ArrayList<String> = arrayListOf(),
     @SerializedName("not_countries") var notCountries: String? = null,

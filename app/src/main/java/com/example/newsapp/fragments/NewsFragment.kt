@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
@@ -79,6 +81,35 @@ class NewsFragment : Fragment(), LifecycleObserver {
         super.onViewCreated(view, savedInstanceState)
         newsArrayList = ArrayList()
         newsAdapter = NewsAdapter(requireContext(), newsArrayList)
+
+        getBindingNewsFragment.shimmerlayoutnews.visibility = View.VISIBLE
+
+
+
+        getBindingNewsFragment.autoNewstype.setAdapter(
+            ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_list_item_1, arrayOf(
+                    "news",
+                    "tech",
+                    "world",
+                    "finance",
+                    "politics",
+                    "business",
+                    "economics",
+                    "entertainment",
+                    "science"
+                )
+            )
+        )
+
+        getBindingNewsFragment.autoNewstype.setOnFocusChangeListener { v, hasFocus -> if (hasFocus) getBindingNewsFragment.autoNewstype.showDropDown() }
+
+        getBindingNewsFragment.autoNewstype.onItemClickListener =
+            AdapterView.OnItemClickListener { adapterView, view, pos, l ->
+
+                viewModel.loadNews(getBindingNewsFragment.autoNewstype.text.toString())
+            }
 
     }
 

@@ -13,4 +13,6 @@
 
     <string name="intro_three_title">Customize News</string>
     <string name="intro_three_description">Select your favorite genre of news and get all the latest updates.</string>
+    <string name="news_topic">Select Topic</string>
+    <string name="read">Know More</string>
 </resources>

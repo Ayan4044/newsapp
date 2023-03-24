@@ -6,5 +6,5 @@ class NewsRepository(
     private val retrofitGateway: RetrofitSingleton
 ) {
 
-    fun getAllNews(authKey: String, topic: String) = retrofitGateway.instance.loadNews(authKey, topic)
+    fun getAllNews(authKey: String, topic: String) = retrofitGateway.instance.loadNews(authKey, "en",topic)
 }
