@@ -79,7 +79,7 @@
 <!--                    android:layout_margin="4dp"-->
 <!--                    android:textStyle="bold"/>-->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/saveData"
+            android:id="@+id/knowmore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"

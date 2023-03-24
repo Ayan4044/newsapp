@@ -111,6 +111,14 @@ class NewsFragment : Fragment(), LifecycleObserver {
                 viewModel.loadNews(getBindingNewsFragment.autoNewstype.text.toString())
             }
 
+
+        newsAdapter.onItemClickListener(object: NewsAdapter.OnItemClickListener{
+            override fun viewdetails(pos: Int) {
+                var article = newsArrayList[pos]
+                
+            }
+
+        })
     }
 
 

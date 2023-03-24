@@ -22,6 +22,7 @@ class NewsAdapter(val context: Context, val dataset: ArrayList<Articles>):
     private var onItemClickListener:  OnItemClickListener? = null
 
     interface OnItemClickListener{
+        abstract fun viewdetails(pos: Int)
 
 
     }
@@ -46,16 +47,17 @@ class NewsAdapter(val context: Context, val dataset: ArrayList<Articles>):
         var textviewDescription: TextView = inflate.findViewById(R.id.textViewndescription)
        // var textViewDateTime : TextView = inflate.findViewById(R.id.textViewDateTime)
         var imageview: ImageView = inflate.findViewById(R.id.imageView)
+        var buttonknowmore : MaterialButton = inflate.findViewById(R.id.knowmore)
 
         init {
-//            districtButton.setOnClickListener(View.OnClickListener {
-//                if (districtOnClickListenr != null) {
-//                    val pos:Int = adapterPosition
-//                    if (pos != RecyclerView.NO_POSITION) {
-//                        districtOnClickListenr.districtItemClick(pos)
-//                    }
-//                }
-//            })
+            buttonknowmore.setOnClickListener(View.OnClickListener {
+                if (districtOnClickListenr != null) {
+                    val pos:Int = adapterPosition
+                    if (pos != RecyclerView.NO_POSITION) {
+                        districtOnClickListenr.viewdetails(pos)
+                    }
+                }
+            })
         }
 
 
