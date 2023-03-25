@@ -6,11 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModelProvider
 import com.ayan.snackymessages.SnackyMessages
+import com.bumptech.glide.Glide
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentWebviewBinding
+import com.example.newsapp.utils.CustomFunction
 import com.example.newsapp.viewmodel.NewsViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -55,7 +59,17 @@ class FragmentNewsDetails : Fragment(), LifecycleObserver {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__webview, container, false)
+        _bindingFragmentWebView =  FragmentWebviewBinding.inflate(inflater, container, false)
+        return  getBindingFragmentWebVIew.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        getBindingFragmentWebVIew.imageButtonback.setOnClickListener {
+            CustomFunction().fragmentReplace(requireActivity(),NewsFragment() )
+        }
+
     }
 
     companion object {
@@ -77,6 +91,24 @@ class FragmentNewsDetails : Fragment(), LifecycleObserver {
                 }
             }
     }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
+    fun onCreated() {
+
+
+
+        viewModel.getArticle.observe(viewLifecycleOwner) { newsArticle ->
+            if (newsArticle == null)
+                return@observe
+            else
+            {
+                getBindingFragmentWebVIew.textViewtitle.text = newsArticle.title
+                getBindingFragmentWebVIew.textViewDescription.text = newsArticle.summary
+                Glide.with(this).load(newsArticle.media).into(getBindingFragmentWebVIew.imageviewheader);
+            }
+        }
+    }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

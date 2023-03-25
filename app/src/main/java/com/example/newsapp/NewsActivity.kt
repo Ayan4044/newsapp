@@ -7,6 +7,7 @@ import com.ayan.snackymessages.SnackyMessages
 import com.example.newsapp.databinding.ActivityMainBinding
 import com.example.newsapp.databinding.ActivityNewsBinding
 import com.example.newsapp.fragments.NewsFragment
+import com.example.newsapp.utils.CustomFunction
 import com.example.newsapp.viewmodel.NewsViewModel
 
 class NewsActivity : AppCompatActivity() {
@@ -27,11 +28,8 @@ class NewsActivity : AppCompatActivity() {
         bindingNewsActivity = ActivityNewsBinding.inflate(layoutInflater)
         setContentView(bindingNewsActivity.root)
 
+        CustomFunction().fragmentReplace(this@NewsActivity,NewsFragment() )
 
-        supportFragmentManager.beginTransaction().replace(
-            R.id.fragment_container,
-            NewsFragment()
-        ).commit()
 
         viewModel.observeInternetConnection(this@NewsActivity)
 

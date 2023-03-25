@@ -16,4 +16,17 @@
         <item name="drawableTint">@color/bludehsadetwo</item>
         <item name="boxStrokeColor">@color/bludehsadetwo</item>
     </style>
+
+
+    <!-- State Adapter layout Buttons-->
+    <style name="MaterialRoundedButtons" parent="Widget.Material3.Button">
+        <item name="android:layout_width"> 40dp</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">textStart</item>
+    </style>
 </resources>

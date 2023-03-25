@@ -21,7 +21,8 @@ import java.net.SocketTimeoutException
 class NewsViewModel (application: Application): AndroidViewModel(application) {
 
     companion object {
-        const val AuthKey = "izsiOpnkJLbJxrtTjgm8jEJnuHPiDHZaCsDvVITfJzc"
+       // const val AuthKey = "izsiOpnkJLbJxrtTjgm8jEJnuHPiDHZaCsDvVITfJzc"
+        const val AuthKey="tk_WzzXXqaC7swDNXkB4nSo9kVP0egS_6eH20xN14ko"
     }
 
     private lateinit var newsRepository: NewsRepository

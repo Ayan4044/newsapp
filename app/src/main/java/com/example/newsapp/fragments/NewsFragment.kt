@@ -18,6 +18,7 @@ import com.example.newsapp.adapter.NewsAdapter
 import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.model.Articles
 import com.example.newsapp.model.DataClassNews
+import com.example.newsapp.utils.CustomFunction
 import com.example.newsapp.utils.ScreenState
 import com.example.newsapp.viewmodel.NewsViewModel
 import com.google.gson.Gson
@@ -117,7 +118,12 @@ class NewsFragment : Fragment(), LifecycleObserver {
 
                 viewModel.setArtcile(newsArrayList[pos])
 
-                
+                CustomFunction().fragmentReplace(requireActivity(),FragmentNewsDetails() )
+//               requireActivity().supportFragmentManager.beginTransaction().replace(
+//                    R.id.fragment_container,
+//                    FragmentNewsDetails()
+//                ).commit()
+
 
             }
 
