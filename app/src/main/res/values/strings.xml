@@ -15,4 +15,6 @@
     <string name="intro_three_description">Select your favorite genre of news and get all the latest updates.</string>
     <string name="news_topic">Select Topic</string>
     <string name="read">Know More</string>
+    <string name="cached_news">Saved News</string>
+    <string name="news_cached_details">Details</string>
 </resources>

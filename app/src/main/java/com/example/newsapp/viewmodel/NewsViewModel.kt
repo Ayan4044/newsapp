@@ -2,11 +2,16 @@ package com.example.newsapp.viewmodel
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.newsapp.api.RetrofitSingleton
 import com.example.newsapp.model.Articles
 import com.example.newsapp.model.DataClassNews
 import com.example.newsapp.repository.NewsRepository
+import com.example.newsapp.room.dao.NewsDao
+import com.example.newsapp.room.database.LocalDatabase
+import com.example.newsapp.room.model.News
+
 import com.example.newsapp.utils.CheckInternet
 import com.example.newsapp.utils.ScreenState
 import com.google.gson.Gson
@@ -14,9 +19,6 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.awaitResponse
-import java.net.ConnectException
-import java.net.ProtocolException
-import java.net.SocketTimeoutException
 
 class NewsViewModel (application: Application): AndroidViewModel(application) {
 
@@ -25,12 +27,13 @@ class NewsViewModel (application: Application): AndroidViewModel(application) {
         const val AuthKey="tk_WzzXXqaC7swDNXkB4nSo9kVP0egS_6eH20xN14ko"
     }
 
-    private lateinit var newsRepository: NewsRepository
+    private  var newsRepository: NewsRepository
     init {
-//        val drugRoomDatabase = DrugDataBase.getDatabase(application)
-//        var roomDao: RoomDao = drugRoomDatabase.drugDao()
+       val newsRoomDatabase = LocalDatabase.getDatabase(application)
+        var roomDao: NewsDao = newsRoomDatabase.newsDao()
         newsRepository = NewsRepository(
             RetrofitSingleton,
+          roomDao
         )
     }
 
@@ -56,6 +59,19 @@ class NewsViewModel (application: Application): AndroidViewModel(application) {
         MutableLiveData()
     val getArticle: LiveData<Articles?> get() = _liveDataArticle
 
+    private var   _livedLocalNewsList: LiveData<List<News>?> = MutableLiveData()
+    val getAllNewsList: LiveData<List<News>?> get() = _livedLocalNewsList
+
+    private var   _liveLastChachedNews: LiveData<String?> = MutableLiveData()
+    val getLastCachedNews: LiveData<String?> get() = _liveLastChachedNews
+
+
+
+
+
+    fun setCachedNews(dataClassNews: DataClassNews){
+        _liveDataNews.postValue(ScreenState.Success(dataClassNews))
+    }
 
 
 
@@ -103,4 +119,45 @@ class NewsViewModel (application: Application): AndroidViewModel(application) {
     fun setArtcile(articles: Articles){
         _liveDataArticle.postValue(articles)
     }
+
+    //room db calls
+    fun insertNewsLocal(dataClassNewsLocal: News) {
+        viewModelScope.launch(Dispatchers.IO) {
+            newsRepository.insertNews(dataClassNewsLocal)
+            Log.e("Data","Inserted")
+        }
+    }
+
+    fun getLocalNews() {
+
+        _livedLocalNewsList = newsRepository.getCachedNews
+
+        _liveLastChachedNews = newsRepository.getLastSavedNews
+
+        Log.e("Data","$_livedLocalNewsList")
+        //Gson().fromJson(decrypted, DataClassDeptUnitRes::class.java)
+//       val liveAllNews: LiveData<List<LocalNews?>?> = newsRepository.getAllSavednews
+//
+//        _livedLocalNewsList = newsRepository.getAllSavednews
+//
+//        Log.e("Data All:"," ${liveAllNews?.value}" )
+//         var liveSavedLocalNews: LiveData<String?>? = newsRepository.getCachedNews
+//        Log.e("Data:"," ${liveSavedLocalNews?.value}" )
+//        viewModelScope.launch(Dispatchers.IO) {
+//            if(liveSavedLocalNews?.value == null){
+//                Log.e("Msg","Null Data")
+//
+//            }
+//            else {
+//                val dataClassNews = Gson().fromJson(
+//                    liveSavedLocalNews?.value,
+//                    DataClassNews::class.java
+//                )
+//                _liveDataNews.postValue(
+//                    ScreenState.Success(dataClassNews)
+//                )
+//            }
+        }
+
+
 }

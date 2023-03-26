@@ -2,6 +2,7 @@ package com.example.newsapp.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,13 +19,14 @@ import com.example.newsapp.adapter.NewsAdapter
 import com.example.newsapp.databinding.FragmentNewsBinding
 import com.example.newsapp.model.Articles
 import com.example.newsapp.model.DataClassNews
+import com.example.newsapp.room.model.News
+
 import com.example.newsapp.utils.CustomFunction
 import com.example.newsapp.utils.ScreenState
 import com.example.newsapp.viewmodel.NewsViewModel
 import com.google.gson.Gson
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.concurrent.schedule
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -119,11 +121,6 @@ class NewsFragment : Fragment(), LifecycleObserver {
                 viewModel.setArtcile(newsArrayList[pos])
 
                 CustomFunction().fragmentReplace(requireActivity(),FragmentNewsDetails() )
-//               requireActivity().supportFragmentManager.beginTransaction().replace(
-//                    R.id.fragment_container,
-//                    FragmentNewsDetails()
-//                ).commit()
-
 
             }
 
@@ -152,6 +149,29 @@ class NewsFragment : Fragment(), LifecycleObserver {
             else
                 populatenws(newsLiveData)
         }
+
+        viewModel.getInternetStatus.observe(this) { status ->
+            if (!status)
+            {
+                snackyMessages.ShowSnackBarEror(
+                    getBindingNewsFragment.root,
+                    "No Internet Connection!!",
+                    R.id.fragmentNews
+                )
+
+            }
+        }
+
+//        viewModel.getAllNewsList?.observe(viewLifecycleOwner){
+//            savedNewsList ->
+//                if(savedNewsList == null) {
+//                    Log.e("Saved LocalNews", "${savedNewsList}")
+//                    return@observe
+//                }
+//                else{
+//                    Log.e("Saved LocalNews","${savedNewsList}")
+//                }
+//        }
     }
 
     private fun populatenws(newsLiveData: ScreenState<DataClassNews?>) {
@@ -174,11 +194,16 @@ class NewsFragment : Fragment(), LifecycleObserver {
 
 
                     if(newsLiveData.data.pageSize ==0){
-                        snackyMessages.ShowSnackbarErrorLite(getBindingNewsFragment.root, "No News Available!!", R.id.fragmentNews)
+                        snackyMessages.ShowSnackbarErrorLite(getBindingNewsFragment.root, "No LocalNews Available!!", R.id.fragmentNews)
 
                     }
                     else {
-
+                        viewModel.insertNewsLocal(
+                            News(
+                                UUID.randomUUID().toString(),
+                                Gson().toJson( newsLiveData.data)
+                            )
+                        )
                         getBindingNewsFragment.recyclerviewNewslive.visibility = View.VISIBLE
                         newsArrayList.addAll(newsLiveData.data.articles)
                     }

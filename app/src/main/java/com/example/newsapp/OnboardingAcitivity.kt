@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.newsapp.databinding.ActivityMainBinding
+import com.example.newsapp.utils.CustomFunction
 import com.github.appintro.AppIntro
 import com.github.appintro.AppIntroFragment
 import com.github.appintro.AppIntroPageTransformerType
@@ -65,6 +66,7 @@ class OnboardingAcitivity : AppIntro() {
     }
 
     private fun movetoMain(){
+        CustomFunction().onboardhingcheck(this@OnboardingAcitivity, true)
         val intent =
             Intent(
                 this@OnboardingAcitivity,

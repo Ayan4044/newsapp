@@ -2,13 +2,19 @@ package com.example.newsapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.ayan.snackymessages.SnackyMessages
 import com.example.newsapp.databinding.ActivityMainBinding
 import com.example.newsapp.databinding.ActivityNewsBinding
 import com.example.newsapp.fragments.NewsFragment
+import com.example.newsapp.fragments.NewsFragmentCached
+
 import com.example.newsapp.utils.CustomFunction
 import com.example.newsapp.viewmodel.NewsViewModel
+import com.google.gson.Gson
+import kotlinx.coroutines.launch
 
 class NewsActivity : AppCompatActivity() {
 
@@ -28,20 +34,40 @@ class NewsActivity : AppCompatActivity() {
         bindingNewsActivity = ActivityNewsBinding.inflate(layoutInflater)
         setContentView(bindingNewsActivity.root)
 
-        CustomFunction().fragmentReplace(this@NewsActivity,NewsFragment() )
+
+
 
 
         viewModel.observeInternetConnection(this@NewsActivity)
+
+
+
+
 
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel.getInternetStatus.observe(this){status ->
-            if(status)
+
+        viewModel.getInternetStatus.observe(this) { status ->
+            if (status) {
                 viewModel.loadNews("news")
-            else
-                snackyMessages.ShowSnackBarEror(bindingNewsActivity.root,"Internet Disconneted!!",R.id.newsactivity)
+                CustomFunction().fragmentReplace(this@NewsActivity,NewsFragment() )
+            }
+            else {
+                snackyMessages.ShowSnackBarEror(
+                    bindingNewsActivity.root,
+                    "No Internet Connection!!",
+                    R.id.newsactivity
+                )
+                viewModel.getLocalNews()
+                //
+                CustomFunction().fragmentReplace(this@NewsActivity,NewsFragmentCached() )
+            }
         }
+
+
+
+
     }
 }

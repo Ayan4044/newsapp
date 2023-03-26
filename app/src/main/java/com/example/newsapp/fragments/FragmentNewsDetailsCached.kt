@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.ayan.snackymessages.SnackyMessages
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
-import com.example.newsapp.databinding.FragmentWebviewBinding
+import com.example.newsapp.databinding.FragmentNewsDetailsCachedBinding
 import com.example.newsapp.utils.CustomFunction
 import com.example.newsapp.viewmodel.NewsViewModel
 
@@ -25,10 +25,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [FragmentNewsDetails.newInstance] factory method to
+ * Use the [FragmentNewsDetailsCached.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FragmentNewsDetails : Fragment(), LifecycleObserver {
+class FragmentNewsDetailsCached : Fragment(), LifecycleObserver {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -42,10 +42,10 @@ class FragmentNewsDetails : Fragment(), LifecycleObserver {
         SnackyMessages()
     }
 
-    //view binding
-    private var _bindingFragmentWebView: FragmentWebviewBinding?= null
-    private val getBindingFragmentWebVIew get() = _bindingFragmentWebView!!
 
+    //view binding
+    private var _bindingFragmentNewsDetailsCached: FragmentNewsDetailsCachedBinding? = null
+    private val getFragmentDetailsCachedBinding get() = _bindingFragmentNewsDetailsCached!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,17 +60,17 @@ class FragmentNewsDetails : Fragment(), LifecycleObserver {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _bindingFragmentWebView =  FragmentWebviewBinding.inflate(inflater, container, false)
-        return  getBindingFragmentWebVIew.root
+        _bindingFragmentNewsDetailsCached =  FragmentNewsDetailsCachedBinding.inflate(inflater, container, false)
+
+        return  getFragmentDetailsCachedBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getBindingFragmentWebVIew.imageButtonback.setOnClickListener {
-            CustomFunction().fragmentReplace(requireActivity(),NewsFragment() )
+        getFragmentDetailsCachedBinding.imageButtonback.setOnClickListener {
+            CustomFunction().fragmentReplace(requireActivity(),NewsFragmentCached() )
         }
-
     }
 
     companion object {
@@ -80,12 +80,12 @@ class FragmentNewsDetails : Fragment(), LifecycleObserver {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment Fragment_Webview.
+         * @return A new instance of fragment FragmentNewsDetailsCached.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            FragmentNewsDetails().apply {
+            FragmentNewsDetailsCached().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -99,17 +99,18 @@ class FragmentNewsDetails : Fragment(), LifecycleObserver {
 
 
         viewModel.getArticle.observe(viewLifecycleOwner) { newsArticle ->
-            if (newsArticle == null) {
-                Log.e("Data","NULL")
+            if (newsArticle == null)
                 return@observe
-            }
             else
             {
-                getBindingFragmentWebVIew.textViewtitle.text = newsArticle.title
-                getBindingFragmentWebVIew.textViewDescription.text = newsArticle.summary
-                Glide.with(this).load(newsArticle.media).into(getBindingFragmentWebVIew.imageviewheader);
+                Log.d("Article Get","$newsArticle")
+                getFragmentDetailsCachedBinding.textViewtitle.text = newsArticle.title
+                getFragmentDetailsCachedBinding.textViewDescription.text = newsArticle.summary
+
             }
         }
+
+
     }
 
 
